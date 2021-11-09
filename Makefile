@@ -6,7 +6,7 @@
 #    By: mballet <mballet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/23 15:34:43 by mballet           #+#    #+#              #
-#    Updated: 2021/08/18 20:57:35 by mballet          ###   ########.fr        #
+#    Updated: 2021/11/09 18:40:03 by mballet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,41 +60,28 @@ SRCS_FILES		= ft_atoi.c\
 				  lst/ft_lstmap.c\
 				  lst/printlst.c\
 				  lst/lst_cpy.c\
-				  ft_strdup_double.c\
-
-OBJS_DIR		= .objs
-
+				  ft_strdup_double.c
 SRCS_DIR		= srcs
-
-OBJS			= $(addprefix $(OBJS_DIR)/,$(SRCS_FILES:.c=.o))
-
 SRCS			= $(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
 
+OBJS_DIR		= .objs
+OBJS			= $(addprefix $(OBJS_DIR)/,$(SRCS_FILES:.c=.o))
 PATH_OBJS		= lst gnl
 
-HEADERS			= include/libft.h
+INCLUDES		= includes/libft.h
 
 CC				= gcc
-
-CFLAGS			= -Wall -Werror -Wextra -Iinclude/
-
+CFLAGS			= -Wall -Werror -Wextra -Iincludes/
 SANFLAGS		= -g3 -fsanitize=address
 
 RM				= rm -rf
-
-green			= \033[32m
-
-yellow			= \033[33m
-
-normal			= \033[0m
 
 all				: $(NAME)
 
 $(NAME)			: $(OBJS)
 					ar rcs $@ $^
-					@echo "$(yellow)Libft $(normal)is $(green)ready$(normal)"
 
-$(OBJS_DIR)/%.o	: $(SRCS_DIR)/%.c $(HEADERS) | $(OBJS_DIR)
+$(OBJS_DIR)/%.o	: $(SRCS_DIR)/%.c $(INCLUDES) | $(OBJS_DIR)
 					$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJS_DIR)		:
